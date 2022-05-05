@@ -9,7 +9,14 @@ function isWeekDay(day){
     return getFirstLetterOfWeekDay(day) != 's'
 }
 
-
+function countWeekDays(days){
+    let weekDays = 0
+    days.forEach(day =>{
+        if(isWeekDay(day))
+            weekDays++
+    })
+    return weekDays
+}
 
 function getCheapestHotel (input) { //DO NOT change the function's name.
     return "Cheapest hotel name"
@@ -17,3 +24,4 @@ function getCheapestHotel (input) { //DO NOT change the function's name.
 
 exports.getCheapestHotel = getCheapestHotel
 exports.isWeekDay = isWeekDay
+exports.countWeekDays = countWeekDays

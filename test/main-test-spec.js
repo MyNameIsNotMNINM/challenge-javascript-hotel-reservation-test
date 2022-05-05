@@ -4,6 +4,7 @@ const chai = require('chai')
 const expect = chai.expect
 const hotels = require('../src/main')
 const isWeekDay = hotels.isWeekDay 
+const countWeekDays = hotels.countWeekDays 
 
 describe('test', function () {
     it('isWeekDay_sunday_false', function () {
@@ -13,10 +14,10 @@ describe('test', function () {
         expect(isWeekDay("16Mar2009(mon)")).to.equal(true);
     });
 
-    it('countWeekends_0_0', function () {
-        expect(countWeekends(["16Mar2009(mon)", "17Mar2009(tue)", "18Mar2009(wed)", "19Mar2009(thu)", "20Mar2009(fri)"])).to.equal(true);
+    it('countWeekDays_5_5', function () {
+        expect(countWeekDays(["16Mar2009(mon)", "17Mar2009(tue)", "18Mar2009(wed)", "19Mar2009(thu)", "20Mar2009(fri)"])).to.equal(5);
     });
-    it('countWeekends_5_5', function () {
-        expect(countWeekends(["15Mar2009(sun)", "01May2022(sun)", "25Jun2022(sat)", "17June2023(sat)", "05Nov2023(sun)"])).to.equal(true);
+    it('countWeekDays_0_0', function () {
+        expect(countWeekDays(["15Mar2009(sun)", "01May2022(sun)", "25Jun2022(sat)", "17June2023(sat)", "05Nov2023(sun)"])).to.equal(0);
     });
 })
