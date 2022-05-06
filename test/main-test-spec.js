@@ -134,3 +134,24 @@ describe('getAllPricesFromAllHotels test', function () {
         ])
     });
 })
+
+describe('getBestHotelFromList test', function () {
+    it('if cost is equal should return hotel with best review', function () {
+        let hotelList = [
+            {hotel: "Lakewood", stars: 3, cost: 300  },
+            {hotel: "Bridgewood", stars: 4, cost: 300  },
+            {hotel: "Ridgewood", stars: 5, cost: 300  },
+        ];
+        let bestHotelFromList = HOTEL.getBestHotelFromList(hotelList)
+        expect(bestHotelFromList.hotel).to.equal("Ridgewood")
+    });
+    it('should return cheaper hotel', function () {
+        let hotelList = [
+            {hotel: "Lakewood", stars: 3, cost: 299  },
+            {hotel: "Bridgewood", stars: 4, cost: 300  },
+            {hotel: "Ridgewood", stars: 5, cost: 300  },
+        ];
+        let bestHotelFromList = HOTEL.getBestHotelFromList(hotelList)
+        expect(bestHotelFromList.hotel).to.equal("Lakewood")
+    });
+})
