@@ -1,9 +1,9 @@
 'use strict'
 
 const chai = require('chai')
-const { default: Hotel } = require('../src/hotel')
+const Hotel = require('../src/hotel')
 const expect = chai.expect
-const HotelData = require("./data/hotelData.json")
+const HotelData = require("../src/data/hotelData.json")
 const hotels = require('../src/main')
 const isWeekDay = hotels.isWeekDay 
 const countWeekDays = hotels.countWeekDays 
@@ -35,18 +35,18 @@ describe('Hotel test', function () {
             hotels[element.name] = new Hotel(element.name, element.prices)
     });
 
-    it('getHotelCost on Lakewood Rewards for 10 days should return 800', function () {
-        expect(hotels['Lakewood'].getHotelCost("Rewards", 5, 5)).to.equal(800);
+    it('getCost on Lakewood Rewards for 10 days should return 800', function () {
+        expect(hotels['Lakewood'].getCost("Rewards", 5, 5)).to.equal(800);
     });
 
-    it('getHotelCost for 0 days should return 0', function () {
-        expect(hotels['Lakewood'].getHotelCost("Rewards", 0, 0)).to.equal(0);
-        expect(hotels['Lakewood'].getHotelCost("Regular", 0, 0)).to.equal(0);
+    it('getCost for 0 days should return 0', function () {
+        expect(hotels['Lakewood'].getCost("Rewards", 0, 0)).to.equal(0);
+        expect(hotels['Lakewood'].getCost("Regular", 0, 0)).to.equal(0);
 
-        expect(hotels['Bridgewood'].getHotelCost("Rewards", 0, 0)).to.equal(0);
-        expect(hotels['Bridgewood'].getHotelCost("Regular", 0, 0)).to.equal(0);
+        expect(hotels['Bridgewood'].getCost("Rewards", 0, 0)).to.equal(0);
+        expect(hotels['Bridgewood'].getCost("Regular", 0, 0)).to.equal(0);
 
-        expect(hotels['Ridgewood'].getHotelCost("Rewards", 0, 0)).to.equal(0);
-        expect(hotels['Ridgewood'].getHotelCost("Regular", 0, 0)).to.equal(0);
+        expect(hotels['Ridgewood'].getCost("Rewards", 0, 0)).to.equal(0);
+        expect(hotels['Ridgewood'].getCost("Regular", 0, 0)).to.equal(0);
     });
 })
