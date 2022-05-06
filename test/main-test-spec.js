@@ -19,5 +19,26 @@ describe('test', function () {
     });
     it('countWeekDays_0_0', function () {
         expect(countWeekDays(["15Mar2009(sun)", "01May2022(sun)", "25Jun2022(sat)", "17June2023(sat)", "05Nov2023(sun)"])).to.equal(0);
+        expect(countWeekDays([])).to.equal(0);
     });
+
+    it('getHotelCost should return 800', function () {
+        expect(getHotelCost("Lakewood", {type:"Regular", weekdays: 5, weekends: 5})).to.equal(800);
+    });
+
+    it('getHotelCost should return 0', function () {
+        expect(getHotelCost("Lakewood", {type:"Rewards", weekdays: 0, weekends: 0})).to.equal(0);
+        expect(getHotelCost("Lakewood", {type:"Regular", weekdays: 0, weekends: 0})).to.equal(0);
+
+        expect(getHotelCost("Bridgewood", {type:"Rewards", weekdays: 0, weekends: 0})).to.equal(0);
+        expect(getHotelCost("Bridgewood", {type:"Regular", weekdays: 0, weekends: 0})).to.equal(0);
+
+        expect(getHotelCost("Ridgewood", {type:"Rewards", weekdays: 0, weekends: 0})).to.equal(0);
+        expect(getHotelCost("Ridgewood", {type:"Regular", weekdays: 0, weekends: 0})).to.equal(0);
+    });
+
+    
+
+
+
 })

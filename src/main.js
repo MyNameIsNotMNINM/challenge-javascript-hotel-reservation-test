@@ -1,3 +1,6 @@
+const HotelData = require("./data/hotelData.json")
+
+
 function getFirstLetterOfWeekDay(day){
     return day[day.length-4];
 }
