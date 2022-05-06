@@ -53,25 +53,84 @@ describe('Hotel test', function () {
 describe('parseInput test', function () {
     it('1 date should parse correctly', function () {
         let hotelRequest = HOTEL.parseInput("Regular: 16Mar2001110(mon)")
-        expect(hotelRequest.costumerType).to.equal("Regular")
-        expect(hotelRequest.days).to.deep.equal(["16Mar2001110(mon)"])
+        expect(hotelRequest).to.eql({costumerType: "Regular", days: ["16Mar2001110(mon)"]})
 
         hotelRequest = HOTEL.parseInput("Rewards: 22Mar2009(sun)")
-        expect(hotelRequest.costumerType).to.equal("Rewards")
-        expect(hotelRequest.days).to.deep.equal(["22Mar2009(sun)"])
+        expect(hotelRequest).to.eql({costumerType: "Rewards", days: ["22Mar2009(sun)"]})
     });
     
 
     it('multiple dates should parse correctly', function () {
         let hotelRequest = HOTEL.parseInput("Regular: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)")
-        expect(hotelRequest.costumerType).to.equal("Regular")
-        expect(hotelRequest.days).to.deep.equal(["16Mar2009(mon)", "17Mar2009(tues)", "18Mar2009(wed)"])
+        expect(hotelRequest).to.eql({costumerType: "Regular", days: ["16Mar2009(mon)", "17Mar2009(tues)", "18Mar2009(wed)"]})
 
         hotelRequest = HOTEL.parseInput("Rewards: 26Mar2009(thur), 27Mar2009(fri), 28Mar2009(sat)")
-        expect(hotelRequest.costumerType).to.equal("Rewards")
-        expect(hotelRequest.days).to.deep.equal(["26Mar2009(thur)", "27Mar2009(fri)", "28Mar2009(sat)"])
-
-
+        expect(hotelRequest).to.eql({costumerType: "Rewards", days: ["26Mar2009(thur)", "27Mar2009(fri)", "28Mar2009(sat)"]})
     });
 
+})
+
+describe('getAllPricesFromAllHotels test', function () {
+    it('no weekends should return correct prices', function () {
+        let hotelData = HOTEL.fetchHotels()
+        let hotelRequest = HOTEL.parseInput("Regular: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)")
+        let hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
+        //regular
+        expect(hotelPrices).to.eql([
+            {hotel: "Lakewood", stars: 3, cost: HotelData.hotels[0].prices.weekDay.regular * 3 },
+            {hotel: "Bridgewood", stars: 4, cost: HotelData.hotels[1].prices.weekDay.regular * 3 },
+            {hotel: "Ridgewood", stars: 5, cost: HotelData.hotels[2].prices.weekDay.regular * 3 },
+        ])
+
+        hotelRequest = HOTEL.parseInput("Rewards: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)")
+        hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
+        //rewards
+        expect(hotelPrices).to.eql([
+            {hotel: "Lakewood", stars: 3, cost: HotelData.hotels[0].prices.weekDay.rewards * 3 },
+            {hotel: "Bridgewood", stars: 4, cost: HotelData.hotels[1].prices.weekDay.rewards * 3 },
+            {hotel: "Ridgewood", stars: 5, cost: HotelData.hotels[2].prices.weekDay.rewards * 3 },
+        ])
+    });
+    
+    it('no weekdays should return correct prices', function () {
+        let hotelData = HOTEL.fetchHotels()
+        let hotelRequest = HOTEL.parseInput("Regular: 21Mar2009(sat), 22Mar2009(sun), 28Mar2009(sat)")
+        let hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
+        //regular
+        expect(hotelPrices).to.eql([
+            {hotel: "Lakewood", stars: 3, cost: HotelData.hotels[0].prices.weekend.regular * 3 },
+            {hotel: "Bridgewood", stars: 4, cost: HotelData.hotels[1].prices.weekend.regular * 3 },
+            {hotel: "Ridgewood", stars: 5, cost: HotelData.hotels[2].prices.weekend.regular * 3 },
+        ])
+
+        hotelRequest = HOTEL.parseInput("Rewards: 21Mar2009(sat), 22Mar2009(sun), 28Mar2009(sat)")
+        hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
+        //rewards
+        expect(hotelPrices).to.eql([
+            {hotel: "Lakewood", stars: 3, cost: HotelData.hotels[0].prices.weekend.rewards * 3 },
+            {hotel: "Bridgewood", stars: 4, cost: HotelData.hotels[1].prices.weekend.rewards * 3 },
+            {hotel: "Ridgewood", stars: 5, cost: HotelData.hotels[2].prices.weekend.rewards * 3 },
+        ])
+    });
+
+    it('should return correct prices', function () {
+        let hotelData = HOTEL.fetchHotels()
+        let hotelRequest = HOTEL.parseInput("Regular: 21Mar2009(sat), 16Mar2009(mon), 28Mar2009(sat)")
+        let hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
+        //regular
+        expect(hotelPrices).to.eql([
+            {hotel: "Lakewood", stars: 3, cost: HotelData.hotels[0].prices.weekend.regular * 2 + HotelData.hotels[0].prices.weekDay.regular  },
+            {hotel: "Bridgewood", stars: 4, cost: HotelData.hotels[1].prices.weekend.regular * 2 + HotelData.hotels[1].prices.weekDay.regular  },
+            {hotel: "Ridgewood", stars: 5, cost: HotelData.hotels[2].prices.weekend.regular * 2 + HotelData.hotels[2].prices.weekDay.regular  },
+        ])
+
+        hotelRequest = HOTEL.parseInput("Rewards: 21Mar2009(sat), 16Mar2009(mon), 28Mar2009(sat)")
+        hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
+        //rewards
+        expect(hotelPrices).to.eql([
+            {hotel: "Lakewood", stars: 3, cost: HotelData.hotels[0].prices.weekend.rewards * 2 + HotelData.hotels[0].prices.weekDay.rewards  },
+            {hotel: "Bridgewood", stars: 4, cost: HotelData.hotels[1].prices.weekend.rewards * 2 + HotelData.hotels[1].prices.weekDay.rewards  },
+            {hotel: "Ridgewood", stars: 5, cost: HotelData.hotels[2].prices.weekend.rewards * 2 + HotelData.hotels[2].prices.weekDay.rewards  },
+        ])
+    });
 })

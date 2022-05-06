@@ -1,7 +1,6 @@
-// As the challenge is in js it can't be typesafe except by the fact that the data is static. 
-// anyway I'm going to define types and class so the code is more readable.
 /** 
- *   
+ *  As the challenge is in js it can't be typesafe except by the fact that the data is static. 
+ *  anyway I'm going to define types and class so the code is more readable.
 */
 class Hotel{
     /**
@@ -19,7 +18,7 @@ class Hotel{
     }
 
     /**
-     * Get total cost of staying at this hotel
+     * Get total cost of staying at this hotel for x week days and y weekend days
      * @param {string} costumerType
      * @param {number} weekDays
      * @param {number} weekends

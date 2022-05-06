@@ -60,6 +60,26 @@ function parseInput(input){
     return new HotelRequest(costumerType, dates)
 }
 
+/**
+ * Parse the input string to a HotelRequest
+ * @param { Map<string, Hotel> } hotels
+ * @param {HotelRequest} hotelRequest
+ * @returns {  { hotel: string, stars: number, cost: number}[] }
+*/
+function getAllPricesFromAllHotels(hotels, hotelRequest){
+    let weekdayCount = countWeekDays(hotelRequest.days)
+    let weekendCount = hotelRequest.days.length - weekdayCount //refactor this line
+    let results = []
+    hotels.forEach((hotel, hotelName) =>{
+        results.push(
+            {
+                hotel: hotelName,
+                stars: hotel.stars,
+                cost: hotel.getCost(hotelRequest.costumerType, weekdayCount, weekendCount)
+            });
+    })
+    return results
+}
 
 /**
  * finds the cheapest hotel given a string with costumer status and the days they will be staying 
@@ -74,5 +94,7 @@ module.exports = {
     getCheapestHotel: getCheapestHotel,
     isWeekDay: isWeekDay,
     countWeekDays: countWeekDays,
-    parseInput: parseInput
+    parseInput: parseInput,
+    fetchHotels: fetchHotels,
+    getAllPricesFromAllHotels: getAllPricesFromAllHotels
 };
