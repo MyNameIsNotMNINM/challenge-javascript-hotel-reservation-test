@@ -9,11 +9,13 @@ class Hotel{
      * @type {{weekDay: {regular: number, rewards: number}, weekend:{regular: number,rewards: number}}} HotelPrices
      * @param {string} name
      * @param {HotelPrices} prices
+     * @param {number} stars
      * @returns {Hotel}
     */
-    constructor(name, prices){
+    constructor(name, prices, stars){
         this.name = name
         this.prices = prices
+        this.stars = stars
     }
 
     /**
@@ -24,6 +26,7 @@ class Hotel{
      * @returns {number}
     */
     getCost(costumerType, weekDays, weekends){
+
         return (costumerType == "Rewards")?
             this.prices.weekDay.rewards * weekDays + this.prices.weekend.rewards * weekends:
             this.prices.weekDay.regular * weekDays + this.prices.weekend.regular * weekends

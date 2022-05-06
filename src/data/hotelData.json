@@ -2,6 +2,7 @@
     "hotels":[
         {
             "name":"Lakewood",
+            "stars": 3,
             "prices": {
                 "weekDay": {
                     "regular":110,
@@ -15,6 +16,7 @@
         },
         {
             "name": "Bridgewood",
+            "stars": 4,
             "prices": {
                 "weekDay": {
                     "regular":160,
@@ -28,6 +30,7 @@
         },
         {
             "name": "Ridgewood",
+            "stars": 5,
             "prices": {
                 "weekDay": {
                     "regular":220,
