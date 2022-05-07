@@ -12,6 +12,17 @@ class HotelRequest{
         this.costumerType = costumerType
         this.days = days
     }
+    /**
+     * Parse the input string to a HotelRequest
+     * @param {string} input
+     * @returns {HotelRequest}
+    */
+    static parseInput(input){
+        let splitInput = input.replace(/:|,/g, '').split(' ')
+        let costumerType = splitInput.shift()
+        let dates = splitInput
+        return new HotelRequest(costumerType, dates)
+    }
 
 }
 module.exports = HotelRequest

@@ -52,19 +52,19 @@ describe('Hotel test', function () {
 
 describe('parseInput test', function () {
     it('1 date should parse correctly', function () {
-        let hotelRequest = HOTEL.parseInput("Regular: 16Mar2001110(mon)")
+        let hotelRequest = HotelRequest.parseInput("Regular: 16Mar2001110(mon)")
         expect(hotelRequest).to.eql({costumerType: "Regular", days: ["16Mar2001110(mon)"]})
 
-        hotelRequest = HOTEL.parseInput("Rewards: 22Mar2009(sun)")
+        hotelRequest = HotelRequest.parseInput("Rewards: 22Mar2009(sun)")
         expect(hotelRequest).to.eql({costumerType: "Rewards", days: ["22Mar2009(sun)"]})
     });
     
 
     it('multiple dates should parse correctly', function () {
-        let hotelRequest = HOTEL.parseInput("Regular: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)")
+        let hotelRequest = HotelRequest.parseInput("Regular: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)")
         expect(hotelRequest).to.eql({costumerType: "Regular", days: ["16Mar2009(mon)", "17Mar2009(tues)", "18Mar2009(wed)"]})
 
-        hotelRequest = HOTEL.parseInput("Rewards: 26Mar2009(thur), 27Mar2009(fri), 28Mar2009(sat)")
+        hotelRequest = HotelRequest.parseInput("Rewards: 26Mar2009(thur), 27Mar2009(fri), 28Mar2009(sat)")
         expect(hotelRequest).to.eql({costumerType: "Rewards", days: ["26Mar2009(thur)", "27Mar2009(fri)", "28Mar2009(sat)"]})
     });
 
@@ -73,7 +73,7 @@ describe('parseInput test', function () {
 describe('getAllPricesFromAllHotels test', function () {
     it('no weekends should return correct prices', function () {
         let hotelData = HOTEL.fetchHotels()
-        let hotelRequest = HOTEL.parseInput("Regular: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)")
+        let hotelRequest = HotelRequest.parseInput("Regular: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)")
         let hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
         //regular
         expect(hotelPrices).to.eql([
@@ -82,7 +82,7 @@ describe('getAllPricesFromAllHotels test', function () {
             {hotel: "Ridgewood", stars: 5, cost: HotelData.hotels[2].prices.weekDay.regular * 3 },
         ])
 
-        hotelRequest = HOTEL.parseInput("Rewards: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)")
+        hotelRequest = HotelRequest.parseInput("Rewards: 16Mar2009(mon), 17Mar2009(tues), 18Mar2009(wed)")
         hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
         //rewards
         expect(hotelPrices).to.eql([
@@ -94,7 +94,7 @@ describe('getAllPricesFromAllHotels test', function () {
     
     it('no weekdays should return correct prices', function () {
         let hotelData = HOTEL.fetchHotels()
-        let hotelRequest = HOTEL.parseInput("Regular: 21Mar2009(sat), 22Mar2009(sun), 28Mar2009(sat)")
+        let hotelRequest = HotelRequest.parseInput("Regular: 21Mar2009(sat), 22Mar2009(sun), 28Mar2009(sat)")
         let hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
         //regular
         expect(hotelPrices).to.eql([
@@ -103,7 +103,7 @@ describe('getAllPricesFromAllHotels test', function () {
             {hotel: "Ridgewood", stars: 5, cost: HotelData.hotels[2].prices.weekend.regular * 3 },
         ])
 
-        hotelRequest = HOTEL.parseInput("Rewards: 21Mar2009(sat), 22Mar2009(sun), 28Mar2009(sat)")
+        hotelRequest = HotelRequest.parseInput("Rewards: 21Mar2009(sat), 22Mar2009(sun), 28Mar2009(sat)")
         hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
         //rewards
         expect(hotelPrices).to.eql([
@@ -115,7 +115,7 @@ describe('getAllPricesFromAllHotels test', function () {
 
     it('should return correct prices', function () {
         let hotelData = HOTEL.fetchHotels()
-        let hotelRequest = HOTEL.parseInput("Regular: 21Mar2009(sat), 16Mar2009(mon), 28Mar2009(sat)")
+        let hotelRequest = HotelRequest.parseInput("Regular: 21Mar2009(sat), 16Mar2009(mon), 28Mar2009(sat)")
         let hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
         //regular
         expect(hotelPrices).to.eql([
@@ -124,7 +124,7 @@ describe('getAllPricesFromAllHotels test', function () {
             {hotel: "Ridgewood", stars: 5, cost: HotelData.hotels[2].prices.weekend.regular * 2 + HotelData.hotels[2].prices.weekDay.regular  },
         ])
 
-        hotelRequest = HOTEL.parseInput("Rewards: 21Mar2009(sat), 16Mar2009(mon), 28Mar2009(sat)")
+        hotelRequest = HotelRequest.parseInput("Rewards: 21Mar2009(sat), 16Mar2009(mon), 28Mar2009(sat)")
         hotelPrices = HOTEL.getAllPricesFromAllHotels(hotelData, hotelRequest)
         //rewards
         expect(hotelPrices).to.eql([

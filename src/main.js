@@ -49,18 +49,6 @@ function fetchHotels(){
 }
 
 /**
- * Parse the input string to a HotelRequest
- * @param {string} input
- * @returns {HotelRequest}
-*/
-function parseInput(input){
-    let splitInput = input.replace(/:|,/g, '').split(' ')
-    let costumerType = splitInput.shift()
-    let dates = splitInput
-    return new HotelRequest(costumerType, dates)
-}
-
-/**
  * returns an array with all the prices calculated, hotel's name and review
  * @param { Map<string, Hotel> } hotels
  * @param {HotelRequest} hotelRequest
@@ -100,7 +88,7 @@ function getBestHotelFromList(hotels){
  * @returns {string}
 */
 function getCheapestHotel (input) { //DO NOT change the function's name.
-    let hotelRequest = parseInput(input)
+    let hotelRequest = HotelRequest.parseInput(input)
     let hotels = fetchHotels()
     let calculatedprices = getAllPricesFromAllHotels(hotels, hotelRequest)
     return getBestHotelFromList(calculatedprices)
@@ -110,7 +98,6 @@ module.exports = {
     getCheapestHotel: getCheapestHotel,
     isWeekDay: isWeekDay,
     countWeekDays: countWeekDays,
-    parseInput: parseInput,
     fetchHotels: fetchHotels,
     getAllPricesFromAllHotels: getAllPricesFromAllHotels,
     getBestHotelFromList: getBestHotelFromList,
