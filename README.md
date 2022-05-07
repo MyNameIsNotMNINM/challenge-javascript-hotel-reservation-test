@@ -1,6 +1,6 @@
-Nearly empty javascript project with a failing test!
+challenge-javascript-hotel-reservation-test!
 ===
-**DO NOT change the names of the function (getCheapestHotel) or of the file and folder it is in, changing it implies in disqualification.**
+**challenge done**
 
 To install the required modules:
 
@@ -13,4 +13,8 @@ To run the (failing) test:
 ```
 $ yarn test
 ```
-**After implementing your solution, it should pass the unit tests available.** 
+##### if you want to see documentation
+install jsdoc
+#yarn add jsdoc
+then run jsdoc
+#jsdoc -c jsdoc.json
