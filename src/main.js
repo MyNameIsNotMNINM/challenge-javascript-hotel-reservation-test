@@ -83,14 +83,24 @@ function getBestHotelFromList(hotels){
 }
 
 /**
+ * gets getAllPricesFromAllHotels from input
+ * reasoning: https://refactoring.guru/pt-br/smells/long-parameter-list
+ * @param {string} input
+ * @returns {{hotel: string, stars: number, cost: number}[]}
+*/
+function getCalculatedPrices(input){
+    let hotelRequest = HotelRequest.parse(input)
+    let hotels = fetchHotels()
+    return getAllPricesFromAllHotels(hotels, hotelRequest)
+}
+
+/**
  * finds the cheapest hotel given a string with costumer status and the days they will be staying 
  * @param {string} input
  * @returns {string}
 */
 function getCheapestHotel (input) { //DO NOT change the function's name.
-    let hotelRequest = HotelRequest.parseInput(input)
-    let hotels = fetchHotels()
-    let calculatedprices = getAllPricesFromAllHotels(hotels, hotelRequest)
+    let calculatedprices = getCalculatedPrices(input)
     return getBestHotelFromList(calculatedprices)
 }
 

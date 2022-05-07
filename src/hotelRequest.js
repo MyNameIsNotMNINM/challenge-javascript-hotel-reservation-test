@@ -17,7 +17,7 @@ class HotelRequest{
      * @param {string} input
      * @returns {HotelRequest}
     */
-    static parseInput(input){
+    static parse(input){
         let splitInput = input.replace(/:|,/g, '').split(' ')
         let costumerType = splitInput.shift()
         let dates = splitInput
