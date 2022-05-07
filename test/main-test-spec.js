@@ -143,7 +143,7 @@ describe('getBestHotelFromList test', function () {
             {hotel: "Ridgewood", stars: 5, cost: 300  },
         ];
         let bestHotelFromList = HOTEL.getBestHotelFromList(hotelList)
-        expect(bestHotelFromList.hotel).to.equal("Ridgewood")
+        expect(bestHotelFromList).to.equal("Ridgewood")
     });
     it('should return cheaper hotel', function () {
         let hotelList = [
@@ -152,6 +152,6 @@ describe('getBestHotelFromList test', function () {
             {hotel: "Ridgewood", stars: 5, cost: 300  },
         ];
         let bestHotelFromList = HOTEL.getBestHotelFromList(hotelList)
-        expect(bestHotelFromList.hotel).to.equal("Lakewood")
+        expect(bestHotelFromList).to.equal("Lakewood")
     });
 })

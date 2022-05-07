@@ -61,7 +61,7 @@ function parseInput(input){
 }
 
 /**
- * Parse the input string to a HotelRequest
+ * returns an array with all the prices calculated, hotel's name and review
  * @param { Map<string, Hotel> } hotels
  * @param {HotelRequest} hotelRequest
  * @returns {  { hotel: string, stars: number, cost: number}[] }
@@ -82,12 +82,28 @@ function getAllPricesFromAllHotels(hotels, hotelRequest){
 }
 
 /**
+ * returns the best hotel from a list of objects containing prices calculated, hotel's name and review
+ * @param {  { hotel: string, stars: number, cost: number}[] } hotels
+ * @returns string
+*/
+function getBestHotelFromList(hotels){
+    let sortedList = hotels.sort((a,b)=>{
+        return a.cost - b.cost || b.stars - a.stars
+    })
+
+    return sortedList[0].hotel
+}
+
+/**
  * finds the cheapest hotel given a string with costumer status and the days they will be staying 
  * @param {string} input
  * @returns {string}
 */
 function getCheapestHotel (input) { //DO NOT change the function's name.
-    return ""
+    let hotelRequest = parseInput(input)
+    let hotels = fetchHotels()
+    let calculatedprices = getAllPricesFromAllHotels(hotels, hotelRequest)
+    return getBestHotelFromList(calculatedprices)
 }
 
 module.exports = {
@@ -96,5 +112,6 @@ module.exports = {
     countWeekDays: countWeekDays,
     parseInput: parseInput,
     fetchHotels: fetchHotels,
-    getAllPricesFromAllHotels: getAllPricesFromAllHotels
+    getAllPricesFromAllHotels: getAllPricesFromAllHotels,
+    getBestHotelFromList: getBestHotelFromList,
 };
